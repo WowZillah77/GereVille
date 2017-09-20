@@ -1,4 +1,7 @@
-public class Capitale extends Ville {
+import java.io.Serializable;
+
+public class Capitale extends Ville implements Serializable {
+    private static final long serialVersionUID=1L;
     private String president;
 
     public Capitale(String nom, String pays, int nbHabitants, String president) {

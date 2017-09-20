@@ -2,15 +2,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Map;
-import java.util.Iterator;
-import java.util.Set;
+import java.io.Serializable;
+
 
 
 public class Main {
     public static HashMap<String, ArrayList<Ville>> listePays = new HashMap<String, ArrayList<Ville>>();
     public static boolean loop = true;
-    private static List<Ville> listeVilles = new ArrayList<Ville>();
+    private static ArrayList<Ville> listeVilles = new ArrayList<Ville>();
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -23,7 +22,9 @@ public class Main {
             System.out.println("2. Liste des listeVilles  et capitales des pays");
             System.out.println("3. Capitale et listeVilles d'un Pays");
             System.out.println("4. Liste des Pays");
-            System.out.println("5. Fin");
+            System.out.println("5. Sauvegarde Liste Villes");
+            System.out.println("6. Restauration listes Villes et Pays");
+            System.out.println("7. Fin");
             System.out.println("choix:");
             int choix = scanner.nextInt();
             if (choix == 1) {
@@ -34,7 +35,13 @@ public class Main {
                 listeVillePays();
             } else if (choix == 4) {
                 listePays();
-            } else if (choix == 5) {
+            } else if(choix ==5) {
+                Fichier.ecrire(listeVilles);
+            }else if(choix ==6){
+                 listeVilles=Fichier.lire();
+                System.out.println("fichier restauré");
+            }
+            else if (choix == 7) {
                 loop = false;
             } else {
 

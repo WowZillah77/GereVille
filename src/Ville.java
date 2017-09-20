@@ -1,5 +1,8 @@
-public class Ville {
+import java.io.Serializable;
 
+public class Ville implements Serializable{
+
+    private static final long serialVersionUID=1L;
     private String nom, pays;
     private int nbHabitants;
     private char categorie='?';
