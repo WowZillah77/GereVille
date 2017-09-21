@@ -4,10 +4,13 @@ public class Capitale extends Ville implements Serializable {
     private static final long serialVersionUID=1L;
     private String president;
 
-    public Capitale(String nom, String pays, int nbHabitants, String president) {
-        super(nom, pays, nbHabitants);
+    public Capitale(int id, String nom, Pays pays, int nbHabitants, String president) {
+        super(id, nom, pays, nbHabitants);
         this.president = president;
     }
+
+
+
 
     public String getPresident() {
         return president;
@@ -18,7 +21,7 @@ public class Capitale extends Ville implements Serializable {
     }
 
     public void affDesc(){
-        System.out.println(this.getNom() +" est la capital de la "+ this.getPays() +"("+this.getNbHabitants()+" habitants) présidé par "+ this.getPresident());
+        System.out.println(this.getNom() +" est la capital de la "+ this.getPays().getNom() +"("+this.getNbHabitants()+" habitants) présidé par "+ this.getPresident());
 
     }
 }

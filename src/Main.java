@@ -1,13 +1,10 @@
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
-import java.io.Serializable;
-
 
 
 public class Main {
-    public static HashMap<String, ArrayList<Ville>> listePays = new HashMap<String, ArrayList<Ville>>();
+    public static HashMap<Integer, ArrayList<Ville>> listePays = new HashMap<Integer, ArrayList<Ville>>();
     public static boolean loop = true;
     private static ArrayList<Ville> listeVilles = new ArrayList<Ville>();
 
@@ -54,8 +51,9 @@ public class Main {
 
     public static void saisie() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Pays:");
-        String pays = scanner.nextLine().toUpperCase();
+        /*System.out.println("Pays:");
+        String pays = scanner.nextLine().toUpperCase();*/
+        Pays France = new Pays(1,"FRANCE",0);
         System.out.println("Nom de la ville");
         String nom = scanner.nextLine();
         System.out.println("nombre d'habitants:");
@@ -66,15 +64,15 @@ public class Main {
         if (choice.charAt(0) == 'y') {
             System.out.println("Nom du président:");
             String president = scanner.nextLine();
-            Capitale capitale = new Capitale(nom, pays, habitants, president);
+            Capitale capitale = new Capitale(0,nom, France, habitants, president);
             System.out.println("capitale créée");
             listeVilles.add(capitale);
-            hashMap(pays, capitale);
+            hashMap(France.getId(), capitale);
         } else if (choice.charAt(0) == 'n') {
-            Ville ville = new Ville(nom, pays, habitants);
+            Ville ville = new Ville(0,nom, France, habitants);
             listeVilles.add(ville);
             System.out.println("Ville créée");
-            hashMap(pays, ville);
+            hashMap(France.getId(), ville);
         } else {
             System.out.println("Est-ce une capital?");
             choice = scanner.nextLine().toLowerCase();
@@ -84,13 +82,16 @@ public class Main {
     }
 
     public static void listeVilles() {
-        for (Ville ville : listeVilles) {
+
+        ArrayList<Ville> resultat =DBConnect.findAllVilles();
+        for (Ville ville : resultat) {
             ville.affDesc();
         }
+
     }
 
 
-    public static void hashMap(String pays, Ville ville) {
+    public static void hashMap(int pays, Ville ville) {
         ArrayList villes = listePays.get(pays);
         if (villes == null) {
             villes = new ArrayList();
@@ -103,31 +104,26 @@ public class Main {
     }
 
     public static void listeVillePays() {
+
         Scanner scanner = new Scanner(System.in);
         System.out.println("Quel pays?:");
-        String choix = scanner.nextLine().toUpperCase();
-        System.out.println(choix);
+        listePays();
+        int choix = scanner.nextInt();
+        ArrayList<Ville> resultat =DBConnect.villesFromOnePays(choix);
+        for (Ville ville : resultat) {
+            ville.affDesc();
+        }
 
-        listePays.forEach((k,v)->{
-            if (k.equals(choix) ) {
 
-                for (Ville ville : v) {
-                    ville.affDesc();
-                }
-            }
-        });
 
 
     }
 
     public static void listePays(){
-        listePays.forEach((k,v)->{
-
-                for (Ville ville : v) {
-                    System.out.println(ville.getPays());
-                }
-
-        });
+        ArrayList<Pays> result = DBConnect.findAllPays();
+        for (Pays pays : result) {
+            pays.affDesc();
+        }
     }
 }
 

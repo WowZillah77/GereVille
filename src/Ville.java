@@ -3,15 +3,24 @@ import java.io.Serializable;
 public class Ville implements Serializable{
 
     private static final long serialVersionUID=1L;
-    private String nom, pays;
+    private String nom;
+    private Pays pays;
     private int nbHabitants;
-    private char categorie='?';
+    private String categorie="?";
+    private int id;
 
-    public Ville(String nom, String pays, int nbHabitants) {
+
+
+    public Ville(int id, String nom, Pays pays, int nbHabitants) {
         this.nom = nom;
         this.pays = pays;
         this.nbHabitants = nbHabitants;
         this.categorie=categories(nbHabitants);
+        this.id=id;
+
+    }
+    public int getId() {
+        return id;
     }
 
     public String getNom() {
@@ -22,11 +31,11 @@ public class Ville implements Serializable{
         this.nom = nom;
     }
 
-    public String getPays() {
+    public Pays getPays() {
         return pays;
     }
 
-    public void setPays(String pays) {
+    public void setPays(Pays pays) {
         this.pays = pays;
     }
 
@@ -43,26 +52,26 @@ public class Ville implements Serializable{
 
     }
 
-    private char categories(int nbHabitants){
+    private String categories(int nbHabitants){
 
         if(nbHabitants>0 && nbHabitants<50000){
-            return 'A';
+            return "A";
         }else if(nbHabitants>=50000 && nbHabitants<200000){
-            return 'B';
+            return "B";
         }else if(nbHabitants>=200000 && nbHabitants<1000000){
-            return 'C';
+            return "C";
         }else if(nbHabitants>=1000000){
-            return 'D';
+            return "D";
         }
-        return '?';
+        return "?";
         }
 
-    public char getCategorie() {
+    public String getCategorie() {
         return categorie;
     }
 
     public void affDesc(){
-            System.out.println(this.getNom()+ " est une ville de "+this.getPays() +" de catégorie "+ this.getCategorie()+"("+this.getNbHabitants()+")");
+            System.out.println(this.getNom()+ " est une ville de "+this.getPays().getNom() +" de catégorie "+ this.getCategorie()+"("+this.getNbHabitants()+")");
 
 
         }
